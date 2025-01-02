@@ -15,30 +15,25 @@ void main() {
         "xcrun simctl list devices",
       );
 
-      await _runCommand(
-        "Listing runtimes...",
-        "xcrun simctl list runtimes",
-      );
-
-      await _runCommand(
-        "Listing booted devices...",
-        "xcrun simctl list devices booted",
-      );
-
-      await _runCommand(
-        "Ensuring simulator is booted...",
-        "xcrun simctl bootstatus booted",
-      );
-
-      await _runCommand(
-        "Checking simulator appearance...",
-        "xcrun simctl ui booted appearance",
-      );
-
-      await _runCommand(
-        "Terminate app...",
-        "xcrun simctl terminate booted com.flutterbountyhunters.bugs.githubcihang",
-      );
+      // await _runCommand(
+      //   "Listing runtimes...",
+      //   "xcrun simctl list runtimes",
+      // );
+      //
+      // await _runCommand(
+      //   "Listing booted devices...",
+      //   "xcrun simctl list devices booted",
+      // );
+      //
+      // await _runCommand(
+      //   "Ensuring simulator is booted...",
+      //   "xcrun simctl bootstatus booted",
+      // );
+      //
+      // await _runCommand(
+      //   "Checking simulator appearance...",
+      //   "xcrun simctl ui booted appearance",
+      // );
 
       print("DONE RUNNING XCRUN CALLS");
     });
