@@ -10,31 +10,42 @@ void main() {
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
 
-      print("Running command to list simulators...");
-      final result = await Process.run(
-        "sh",
-        [
-          "-c",
-          "xcrun",
-          "simctl",
-          "list",
-          "--verbose",
-        ],
+      _runCommand(
+        "Listing devices...",
+        "xcrun simctl list devices",
       );
 
-      // process.stdout.transform(utf8.decoder).listen((data) {
-      //   print("STDOUT:\n$data");
-      // });
-      // process.stderr.transform(utf8.decoder).listen((data) {
-      //   print("STDERR:\n$data");
-      // });
-      // print("The process started...");
-      // print("Closing stdin");
-      // process.stdin.close();
-      // print("Waiting for exit code...");
-      // final exitCode = await process.exitCode;
-      // print("The xcrun call returned with exit code: $exitCode");
-      print("The xcrun call returned with exit code: ${result.exitCode}");
+      _runCommand(
+        "Listing runtimes...",
+        "xcrun simctl list runtimes",
+      );
+
+      _runCommand(
+        "Listing booted devices...",
+        "xcrun simctl list devices booted",
+      );
+
+      _runCommand(
+        "Ensuring simulator is booted...",
+        "xcrun simctl bootstatus booted",
+      );
+
+      _runCommand(
+        "Checking simulator appearance...",
+        "xcrun simctl ui booted appearance",
+      );
+
+      print("DONE RUNNING XCRUN CALLS");
     });
   });
+}
+
+Future<void> _runCommand(String message, String command) async {
+  print(message);
+  final result = await Process.run("sh", [
+    "-c",
+    command,
+  ]);
+  print("Result: ${result.exitCode} - stdout: ${result.stdout}, stderr: ${result.stderr}");
+  print("\n\n");
 }
