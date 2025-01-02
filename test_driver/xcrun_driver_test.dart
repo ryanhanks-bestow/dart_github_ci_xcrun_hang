@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emulators/emulators.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -9,7 +10,8 @@ void main() {
 
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
-
+      final emulators = await Emulators.build();
+      print(await emulators.list());
       await _runCommand(
         "Listing devices...",
         "xcrun simctl list devices available",
@@ -46,6 +48,7 @@ Future<void> _runCommand(String message, String command) async {
     "-c",
     command,
   ]);
-  print("Result: ${result.exitCode} - stdout: ${result.stdout}, stderr: ${result.stderr}");
+  print(
+      "Result: ${result.exitCode} - stdout: ${result.stdout}, stderr: ${result.stderr}");
   print("\n\n");
 }
