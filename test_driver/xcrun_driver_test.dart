@@ -35,6 +35,11 @@ void main() {
         "xcrun simctl ui booted appearance",
       );
 
+      _runCommand(
+        "Terminate app...",
+        "xcrun simctl terminate booted com.flutterbountyhunters.bugs.githubcihang",
+      );
+
       print("DONE RUNNING XCRUN CALLS");
     });
   });
