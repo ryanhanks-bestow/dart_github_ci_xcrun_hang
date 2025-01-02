@@ -35,7 +35,7 @@ jobs:
           
           # Boot the simulator
           xcrun simctl boot "$SIMULATOR_ID"
-          xcrun simctl list devices booted
+          time xcrun simctl list devices booted
 
       - name: Ensure simulator is booted
         run: xcrun simctl bootstatus booted
