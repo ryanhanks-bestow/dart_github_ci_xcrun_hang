@@ -1,0 +1,64 @@
+name: Validate PR
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test_flutter-test-runners_deep-links_ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Xcode
+        run: |
+          sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          architecture: x64
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Create and Boot iOS Simulator
+        run: |
+          # List available devices and runtimes
+          xcrun simctl list devices
+          xcrun simctl list runtimes
+          
+          # Create a new simulator (if needed)
+          SIMULATOR_ID=$(xcrun simctl create "GitHubActions-Simulator" "iPhone 14" "com.apple.CoreSimulator.SimRuntime.iOS-17-0")
+          
+          # Boot the simulator
+          xcrun simctl boot "$SIMULATOR_ID"
+          xcrun simctl list devices booted
+
+      - name: Ensure simulator is booted
+        run: xcrun simctl bootstatus booted
+
+      - name: Check the simulator UI
+        run: xcrun simctl ui booted appearance
+
+      - name: Take a screenshot of the simulator
+        run: |
+          mkdir -p ~/simulator-screenshots
+          xcrun simctl io booted screenshot ~/simulator-screenshots/screenshot.png
+
+      - name: Upload simulator screenshot as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: simulator-screenshot
+          path: ~/simulator-screenshots/screenshot.png
+
+      - name: Kill any simctl processes
+        run: pkill -f runner
+
+      - name: Check for other processes using the simulator
+        run: ps aux | grep simctl
+
+      - name: Call xcrun from Dart
+        run: flutter test test_driver/xcrun_driver_test.dart
