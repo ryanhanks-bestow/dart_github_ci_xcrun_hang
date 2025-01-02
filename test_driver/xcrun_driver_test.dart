@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emulators/emulators.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,7 +14,8 @@ void main() {
         "Getting help",
         "xcrun simctl -h",
       );
-
+      final emulators = await Emulators.build();
+      print(await emulators.list());
       await _runCommand(
         "Listing devices...",
         "xcrun simctl list devices available",
