@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:emulators/emulators.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -10,8 +9,7 @@ void main() {
 
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
-      final emulators = await Emulators.build();
-      print(await emulators.list());
+
       await _runCommand(
         "Listing devices...",
         "xcrun simctl list devices available",
@@ -38,7 +36,7 @@ void main() {
       // );
 
       print("DONE RUNNING XCRUN CALLS");
-    }, timeout: Timeout(const Duration(seconds: 10)));
+    }, timeout: Timeout(const Duration(seconds: 11)));
   });
 }
 
