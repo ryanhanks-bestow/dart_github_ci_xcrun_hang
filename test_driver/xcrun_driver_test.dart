@@ -12,7 +12,7 @@ void main() {
 
       await _runCommand(
         "Listing devices...",
-        "xcrun simctl list devices",
+        "xcrun simctl list devices available",
       );
 
       // await _runCommand(
