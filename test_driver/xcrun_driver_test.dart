@@ -10,32 +10,32 @@ void main() {
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
 
-      _runCommand(
+      await _runCommand(
         "Listing devices...",
         "xcrun simctl list devices",
       );
 
-      _runCommand(
+      await _runCommand(
         "Listing runtimes...",
         "xcrun simctl list runtimes",
       );
 
-      _runCommand(
+      await _runCommand(
         "Listing booted devices...",
         "xcrun simctl list devices booted",
       );
 
-      _runCommand(
+      await _runCommand(
         "Ensuring simulator is booted...",
         "xcrun simctl bootstatus booted",
       );
 
-      _runCommand(
+      await _runCommand(
         "Checking simulator appearance...",
         "xcrun simctl ui booted appearance",
       );
 
-      _runCommand(
+      await _runCommand(
         "Terminate app...",
         "xcrun simctl terminate booted com.flutterbountyhunters.bugs.githubcihang",
       );
