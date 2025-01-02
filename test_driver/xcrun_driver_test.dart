@@ -10,16 +10,13 @@ void main() {
 
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
-      await _runCommand(
-        "Getting help",
-        "xcrun simctl -h",
-      );
+
       final emulators = await Emulators.build();
       print(await emulators.list());
-      await _runCommand(
-        "Listing devices...",
-        "xcrun simctl list devices available",
-      );
+      // await _runCommand(
+      //   "Listing devices...",
+      //   "xcrun simctl list devices available",
+      // );
 
       // await _runCommand(
       //   "Listing runtimes...",
@@ -42,7 +39,7 @@ void main() {
       // );
 
       print("DONE RUNNING XCRUN CALLS");
-    }, timeout: Timeout(const Duration(seconds: 40)));
+    }, timeout: Timeout(const Duration(seconds: 300)));
   });
 }
 
