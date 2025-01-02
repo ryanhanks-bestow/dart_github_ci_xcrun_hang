@@ -9,6 +9,10 @@ void main() {
 
       // print("Env variables:");
       // print(Process.runSync('env', []).stdout);
+      await _runCommand(
+        "Getting help",
+        "xcrun simctl -h",
+      );
 
       await _runCommand(
         "Listing devices...",
@@ -36,7 +40,7 @@ void main() {
       // );
 
       print("DONE RUNNING XCRUN CALLS");
-    }, timeout: Timeout(const Duration(seconds: 11)));
+    }, timeout: Timeout(const Duration(seconds: 40)));
   });
 }
 
